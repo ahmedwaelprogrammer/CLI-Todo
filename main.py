@@ -16,7 +16,7 @@ while True:
             file = open("todos.txt", "r")
             todos = file.readlines()
             file.close()
-            #new_todos = [todo.strip('\n') for todo in todos]
+
 
             for i , todo in enumerate(todos):
                 todo = todo.strip("\n")
