@@ -1,52 +1,49 @@
-def get_todos():
-    with open("todos.txt", "r") as file:
-        todos = file.readlines()
-        return todos
+import mods
 
 todos = []
 while True:
     user_action = input("Type 'add' , 'show' ,  'edit' , 'complete' 'exit':").strip()
-    if 'add' in user_action[0:3]:
+    if user_action.startswith("add"):
         try:
             todo = user_action[4:].strip() + '\n'
 
-            todos = get_todos()
+            todos = mods.get_todos()
             todos.append(todo)
 
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            mods.write_todos(todos)
+
         except:
             print("Something went wrong Please Follow the instructions for add command :add <YOUR NEW TODO>")
             continue
-    elif 'show' in user_action[0:4]:
-        todos = get_todos()
+    elif user_action.startswith("show"):
+        todos = mods.get_todos()
 
         for i , todo in enumerate(todos):
             todo = todo.strip("\n")
             print(f"{i+1} -{todo}")
-    elif 'edit' in user_action[0:4]:
+    elif user_action.startswith("edit"):
         try:
             chose_todo = int(user_action[4:]) - 1
             new_todo = input("Type the new TODO:") + '\n'
 
-            todos = get_todos()
-
+            todos = mods.get_todos()
+            old_todo = todos[chose_todo]
             todos[chose_todo] = new_todo
+            print(f"todo {chose_todo + 1} - {old_todo} -- has been updated to -- {new_todo}")
 
-            with open("todos.txt" , 'w') as file:
-                file.writelines(todos)
+            mods.write_todos(todos)
 
         except:
             print("Something went wrong Please Follow the instructions for edit command :edit <TODO NUMBER IN THE LIST>")
             continue
-    elif 'complete' in user_action[0:8]:
+    elif user_action.startswith("complete"):
         try:
             chose_todo = int(user_action[9:]) - 1
-            todos = get_todos()
+            todos = mods.get_todos()
+            old_todo = todos[chose_todo]
             todos.pop(chose_todo)
-
-            with open("todos.txt" , 'w') as file:
-                file.writelines(todos)
+            print(f"{chose_todo+1} - {old_todo} -- has been removed ")
+            mods.write_todos(todos)
 
         except:
             print("Something went wrong Please Follow the instructions for complete command :complete <TODO NUMBER IN THE LIST>")
