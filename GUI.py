@@ -23,7 +23,7 @@ edit_button = sg.Button("Edit")
 
 
 sg.DEFAULT_BACKGROUND_COLOR = color_one
-app_window = sg.Window("ToDo List" , [[label], [[todo_input] , [add_button]] ,[[list_box] , [edit_button]]] , font="Helvetica 12 bold")
+app_window = sg.Window("ToDo List" , [[label], [todo_input , add_button] ,[list_box , edit_button]] , font="Helvetica 12 bold")
 while True:
     event = app_window.read()
     ev_name, ev_value = event
